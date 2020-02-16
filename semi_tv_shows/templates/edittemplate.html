@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Edit TV Show {{current_show.name}}</title>
+</head>
+<body>
+    <div class='row'>
+        {% if messages %}
+        <u1 class='messages'>
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </u1>
+        {% endif %}
+    </div>
+    <div class='container bg-primary'>
+        <form class='form-group' action='/{{current_id}}/process_edit' method='POST'>
+            {% csrf_token %}
+            <label for='name'>Title</label>
+            <input type='text' id='name' value='{{current_title}}' name='new_title'>
+            <label for='network'>Network</label>
+            <select class='form-control' id='network' name='new_network' value='{{current_network}}'>
+                {% for network in all_networks %}
+                <option value={{network.id}}>{{network.name}}</option>
+                {% endfor %}
+            </select>
+            <label for='release'>Release Date Current Release: {{current_release}}</label>
+            <input type="date" name='new_release_date' value='{{current_release}}'>
+            <label for='description'>Description</label>
+            <input id='description' type='text' name='new_description' value='{{current_desc}}'>
+            <button type=submit>Update</button>
+        </form>
+    </div>
+</body>
+</html>

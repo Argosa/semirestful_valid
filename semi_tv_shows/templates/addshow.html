@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Add a TV Show</title>
+</head>
+<body>
+    <div class='container bg-primary'>
+        <div class='row'>
+            <h1 class='col'>Add a TV Show</h1>
+            <div class='col text-right'>
+                <a class='text-white mr-2, mt-2' href='/'>Go Back</a>
+            </div>
+        </div>
+        <div class='row'>
+            {% if messages %}
+            <u1 class='messages'>
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </u1>
+            {% endif %}
+        </div>
+            <form action='/process_show' method='POST'>
+                {% csrf_token %}
+                <label for='name'>Show Name:</label>
+                <input id='name' class='form-control' type='text' name='show_name'>
+                <label for='network'>Network</label>
+                <select class="form-control" name='show_network' id='network'>
+                    {% for network in all_networks %}
+                    <option value={{network.id}}>{{network.name}}</option>
+                    {% endfor %}
+                </select>
+                <label for='release'>Release Date</label>
+                <input class='form-control' type='date' id='release' name='show_release'>
+                <label for='description'>Description</label>
+                <input class='form-control' type='text' id='description' name='show_desc'>
+                <button class='m-2' type='submit'>Add Show</button>
+            </form>
+    </div>
+</body>
+</html>
