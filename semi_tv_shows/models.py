@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 class ShowManager(models.Manager):
+    # Validate the data as it is entered
     def basic_validator(self, postData):
         errors = {}
         # add keys and values to errors dictionary for each invalid field
@@ -14,6 +15,7 @@ class ShowManager(models.Manager):
             errors["show_desc"] = 'Show description requires 10 characters or more'
         return errors
     
+    # Validate edits as they are done for the project
     def edit_validator(self, postData):
         errors = {}
         # add keys and values to errors dictionary for each invalid field
@@ -42,6 +44,7 @@ class Show(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = ShowManager()
 
+    # Sets output that comes out when you console lot or retrived data for uptput
     def __repr__(self):
         return f"{self.name} {self.network} {self.release_date} {self.desc} {self.created_at} {self.updated_at}"
 
